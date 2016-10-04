@@ -1,10 +1,15 @@
+# Matrix inversion is usually an expensive computation;
+# It renders beneficial to bundle matrices with their inverces
+# where inverses are computed once and cached for futher references.
+
+
 # The assignment requires to write two separate functions makeCacheMatrix and cacheSolve
 # which seems to me to be an awkward implementation of the memoization pattern
 # It would be handier to compute an inverse directly in the set function of makeCacheMatrix
 # this would allow to get rid of setInverse function
 
 
-# Matrix that can be bound with its inverse
+# Matrix that can be bundled with its inverse
 makeCacheMatrix <- function(M = matrix()) {
     # memoization field
     M_inverse <- NULL
@@ -24,7 +29,8 @@ makeCacheMatrix <- function(M = matrix()) {
 }
 
 
-# Computes an inverse of a matrix if it's null, otherwise return the cached value
+# Computes and sets an inverse of a matrix if it's null,
+# otherwise return the cached value
 cacheSolve <- function(M, ...) {    
     inverse <- M$getInverse()    
     if (!is.null(inverse)) {
